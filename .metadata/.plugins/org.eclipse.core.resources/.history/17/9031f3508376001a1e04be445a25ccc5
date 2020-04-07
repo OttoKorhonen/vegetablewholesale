@@ -1,0 +1,11 @@
+package hh.swd20.vegetablewholesale.web;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class ProductController {
+	
+	//Model - vastuussa sovellusdatan ylläpidosta
+	//View - vastuussa datan näyttämisestä käyttäjälle
+	//Controller - käsittelee käyttäjän syöttämää tietoa (inputs) ja toimii yhdessä modelin kanssa
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Book form</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Product</h1>
+	<form th:object="${product}" th:action="@{save}" action="#" method="post">
+		  	<label for="name">Name:</label>
+			<input type="text" id="name" th:field="*{name}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+		  	<label for="cultivar">Cultivar:</label>
+			<input type="text" id="cultivar" th:field="*{cultivar}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+		  	<label for="description">Description:</label>
+			<input type="text" th:field="*{description}" />
+			<label for="producer">Producer:</label>
+			<input type="text" id="producer" th:field="*{producer}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<label for="country">Country:</label>
+			<input type="text" id="country" th:field="*{country}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<label for="price">Price:</label>
+			<input type="text" id="price" th:field="*{price}" />
+
+			<div style="clear: both; display: block; height: 10px;"></div>						
+		  	<label for="category">Category:</label>
+			 <select id="category" th:field="*{category}" class="form-control"> 
+       			<option th:each="category: ${categories}" th:value="${category.categoryid}" th:text="${category.name}"></option>
+    		</select>
+			
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<input type="submit" value="Save"></input>
+		</form>
+    
+</body>
+</html>

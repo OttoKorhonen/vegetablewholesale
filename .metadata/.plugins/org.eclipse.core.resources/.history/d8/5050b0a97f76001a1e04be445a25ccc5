@@ -1,0 +1,13 @@
+package hh.swd20.vegetablewholesale;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class VegetablewholesaleApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(VegetablewholesaleApplication.class, args);
+	}
+
+}

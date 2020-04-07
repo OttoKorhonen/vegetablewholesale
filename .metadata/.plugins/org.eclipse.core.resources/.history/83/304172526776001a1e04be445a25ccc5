@@ -1,0 +1,5 @@
+package hh.swd20.vegetablewholesale.domain;
+
+public class Category {
+
+}

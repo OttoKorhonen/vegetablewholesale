@@ -1,6 +1,0 @@
-package hh.swd20.vegetablewholesale.web;
-
-@Service
-public class UserDetailServiceImpl  {
-
-}

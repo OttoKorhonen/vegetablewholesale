@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Category {
 
@@ -17,6 +19,7 @@ public class Category {
 	private Long categoryId;
 	private String name;
 	
+	@JsonBackReference
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category") //luodaan yhden suhde moneen relaatio product listaan
 	private List<Product>products;
 

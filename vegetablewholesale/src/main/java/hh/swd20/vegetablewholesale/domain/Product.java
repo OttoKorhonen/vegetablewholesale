@@ -24,7 +24,7 @@ public class Product {
 	private String country;
 	private double price;
 	
-	@ManyToOne(cascade = CascadeType.ALL)//luodaan monen suhde yhteen yhteys relaatiotietokantaan 
+	@ManyToOne//luodaan monen suhde yhteen yhteys relaatiotietokantaan 
 	@JsonIgnore
 	@JsonManagedReference
 	@JoinColumn(name = "categoryId")//viitataan category-luokan categoryId:hen

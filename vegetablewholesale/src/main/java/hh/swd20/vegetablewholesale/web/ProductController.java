@@ -91,43 +91,42 @@ public class ProductController {
 		return (List<Product>) productRepository.findAll();
 	}
 
-//	// RESTful palvelu, jolla etsitään tuotteen id:n perusteella
-//	@RequestMapping(value = "/products/{productId}", method = RequestMethod.GET)
-//	public @ResponseBody Optional<Product> findProductRest(@PathVariable("productId") Long productId) {
-//		return productRepository.findById(productId);
-//	}
+	// RESTful palvelu, jolla etsitään tuotteen id:n perusteella
+	@RequestMapping(value = "/products/{productId}", method = RequestMethod.GET)
+	public @ResponseBody Optional<Product> findProductRest(@PathVariable("productId") Long productId) {
+		return productRepository.findById(productId);
+	}
 	// Rest palvelu, jolla voi lisätä uuden tuotteen
 	@RequestMapping(value = "/products", method = RequestMethod.POST)
 	public @ResponseBody Product addNewProduct(@RequestBody Product product) {
+		//kategorian käsittely org.hibernate.TransientPropertyValueException: object references an unsaved transient instance - save the transient instance before flushing : hh.swd20.vegetablewholesale.domain.Product.category -> hh.swd20.vegetablewholesale.domain.Category; nested exception is java.lang.IllegalStateException: org.hibernate.TransientPropertyValueException: object references an unsaved transient instance - save the transient instance before flushing : hh.swd20.vegetablewholesale.domain.Product.category -> hh.swd20.vegetablewholesale.domain.Category"
 		productRepository.save(product);
 		return product;
 	}
 //	//REST metodi tuotteen muokkaamiseen
-//	@RequestMapping(value = "/products/{productId}", method = RequestMethod.GET)
+//	@RequestMapping(value = "/products/{productId}", method = RequestMethod.POST)
 //	public @ResponseBody Product editProduct(@RequestBody Product product, Model model) {
 //		model.addAttribute("product", productRepository.findById(productId));
 //		return product;
 //	}
+	
+	//REST metodi tuotteen muokkaamiseen
+		@RequestMapping(value = "/products/{productId}", method = RequestMethod.POST)
+		public @ResponseBody Product editProduct(@PathVariable("id") Long productId,@RequestBody Product product, Model model) {
+			model.addAttribute("product", productRepository.findById(productId));
+			return product;
+		}
 
-	// REST metodi tuotteen muokkaamiseen
-	@RequestMapping(value = "/products/{id}", method = RequestMethod.POST)
-	public @ResponseBody Optional<Product> editProduct(@PathVariable("id") Long productId, @RequestBody Optional<Product> p) {
-		// model.addAttribute("product", productRepository.findById(productId));
-		//productRepository.findById(productId).get().setPrice(0);
-		//Product product = productRepository.findById(productId).get();
-		//product.setPrice(p.getPrice());
-		//productRepository.save(product);
-		//return productRepository.findById(productId);
-		return p;
-	}
-
-//	// Testimetodi
-//	@RequestMapping(value = "/testproducts/{id}", method = RequestMethod.PUT)
-//	public @ResponseBody Optional<Product> testeditProduct(@PathVariable("id") Long productId) {
-//		Optional<Product> product = productRepository.findById(productId);
-//
+//	// REST metodi tuotteen muokkaamiseen
+//	@RequestMapping(value = "/products/{id}", method = RequestMethod.POST)
+//	public @ResponseBody Optional<Product> editProduct(@PathVariable("id") Long productId, @RequestBody Optional<Product> p) {
 //		// model.addAttribute("product", productRepository.findById(productId));
-//		return productRepository.findById(productId);
+//		//productRepository.findById(productId).get().setPrice(0);
+//		//Product product = productRepository.findById(productId).get();
+//		//product.setPrice(p.getPrice());
+//		//productRepository.save(product);
+//		//return productRepository.findById(productId);
+//		return p;
 //	}
 
 	// REST metodi kyselyn poistamiseen

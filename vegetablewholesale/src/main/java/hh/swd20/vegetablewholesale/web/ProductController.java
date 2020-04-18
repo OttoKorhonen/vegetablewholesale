@@ -111,13 +111,14 @@ public class ProductController {
 
 	// REST metodi tuotteen muokkaamiseen
 	@RequestMapping(value = "/products/{id}", method = RequestMethod.POST)
-	public @ResponseBody Optional<Product> editProduct(@PathVariable("id") Long productId, @RequestBody Product p) {
+	public @ResponseBody Optional<Product> editProduct(@PathVariable("id") Long productId, @RequestBody Optional<Product> p) {
 		// model.addAttribute("product", productRepository.findById(productId));
 		//productRepository.findById(productId).get().setPrice(0);
 		Product product = productRepository.findById(productId).get();
 		product.setPrice(p.getPrice());
 		productRepository.save(product);
-		return productRepository.findById(productId);
+		//return productRepository.findById(productId);
+		return p;
 	}
 
 //	// Testimetodi

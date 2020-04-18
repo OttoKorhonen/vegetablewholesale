@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http
-		.authorizeRequests().antMatchers("/css/**","/api/products","/products","/categories","/api/categories","/products/**").permitAll()
+		.authorizeRequests().antMatchers("/css/**","/api/products","/products","/categories","/api/categories","/products/{productId}").permitAll()
 		.antMatchers("/", "/").permitAll()//kuka tahansa käyttäjä voi nähdä productlist sivun
         .and()
         .authorizeRequests()

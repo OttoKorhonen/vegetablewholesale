@@ -22,15 +22,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http
-		.authorizeRequests().antMatchers("/css/**","/api/products","/products","/categories","/api/categories","/products/id").permitAll()
-		.antMatchers("/", "/productlist").permitAll()//kuka tahansa käyttäjä voi nähdä productlist sivun
+		.authorizeRequests().antMatchers("/css/**","/api/products","/products","/categories","/api/categories","/products/**").permitAll()
+		.antMatchers("/", "/").permitAll()//kuka tahansa käyttäjä voi nähdä productlist sivun
         .and()
         .authorizeRequests()
         .antMatchers("/", "/productlist").permitAll()//kuka tahansa käyttäjä voi nähdä productlist sivun
         .antMatchers("/delete/{productId}").hasRole("ADMIN")//ainoastaan admin-oikeudet omaava käyttäjä voi poistaa tuotteen
         .antMatchers("/editproduct/{productId}").hasRole("ADMIN")//ainoastaan admin-oikeudet omaava käyttäjä voi poistaa tuotteen
-          .anyRequest().authenticated()
-          .and()
+        .and()
       .formLogin()
           .loginPage("/login")
           .defaultSuccessUrl("/productlist")

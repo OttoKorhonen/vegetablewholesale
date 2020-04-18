@@ -110,7 +110,7 @@ public class ProductController {
 //	}
 	
 	//REST metodi tuotteen muokkaamiseen
-		@RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
+		@RequestMapping(value = "/products/{id}", method = RequestMethod.POST)
 		public @ResponseBody Optional <Product> editProduct(@PathVariable("id") Long productId) {
 			//model.addAttribute("product", productRepository.findById(productId));
 			return productRepository.findById(productId);

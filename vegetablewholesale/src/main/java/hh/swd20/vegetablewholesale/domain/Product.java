@@ -1,5 +1,6 @@
 package hh.swd20.vegetablewholesale.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +24,7 @@ public class Product {
 	private String country;
 	private double price;
 	
-	@ManyToOne//luodaan monen suhde yhteen yhteys relaatiotietokantaan 
+	@ManyToOne(cascade = CascadeType.ALL)//luodaan monen suhde yhteen yhteys relaatiotietokantaan 
 	@JsonIgnore
 	@JsonManagedReference
 	@JoinColumn(name = "categoryId")//viitataan category-luokan categoryId:hen

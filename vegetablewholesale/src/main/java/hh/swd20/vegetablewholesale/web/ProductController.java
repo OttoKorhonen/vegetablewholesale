@@ -56,7 +56,7 @@ public class ProductController {
 	} // joka prosessoidaan palvelimella
 
 	// tyhjän tuotelomakkeen muodostaminen, uuden tuotteen luominen
-	//@PreAuthorize("hasAuthority('ADMIN')")
+	// @PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/addproduct", method = RequestMethod.GET)
 	public String addProductForm(Model model) {
 		model.addAttribute("product", new Product()); // "tyhjä" tuote-olio
@@ -75,7 +75,7 @@ public class ProductController {
 	// tuotteen poistamiseen käytetty metodi, jossa ainoastaan käyttäjä, jolle on
 	// annettu rooli ADMIN voi poistaa tuotteen luettelosta
 	@RequestMapping(value = "/deleteproduct/{productId}", method = RequestMethod.GET)
-	//@PreAuthorize("hasAuthority('ADMIN')")
+	// @PreAuthorize("hasAuthority('ADMIN')")
 	public String deleteProduct(@PathVariable("productId") Long productId, Model model) {
 		productRepository.deleteById(productId);
 		return "redirect:../productlist";
@@ -84,7 +84,7 @@ public class ProductController {
 	/*
 	 * Tässä on REST metodit
 	 */
-	
+
 	// Tehdään RESTful metodi hakemaan kaikki tuotteet
 	@RequestMapping(value = "/products", method = RequestMethod.GET)
 	public @ResponseBody List<Product> productListRest() {
@@ -108,18 +108,28 @@ public class ProductController {
 //		model.addAttribute("product", productRepository.findById(productId));
 //		return product;
 //	}
-	
-	//REST metodi tuotteen muokkaamiseen
-		@RequestMapping(value = "/products/{id}", method = RequestMethod.POST)
-		public @ResponseBody Optional <Product> editProduct(@PathVariable("id") Long productId) {
-			//model.addAttribute("product", productRepository.findById(productId));
-			return productRepository.findById(productId);
-		}
-	//REST metodi kyselyn poistamiseen
+
+	// REST metodi tuotteen muokkaamiseen
+	@RequestMapping(value = "/products/{id}", method = RequestMethod.PUT)
+	public @ResponseBody Optional<Product> editProduct(@PathVariable("id") Long productId) {
+		// model.addAttribute("product", productRepository.findById(productId));
+		return productRepository.findById(productId);
+	}
+
+//	// Testimetodi
+//	@RequestMapping(value = "/testproducts/{id}", method = RequestMethod.PUT)
+//	public @ResponseBody Optional<Product> testeditProduct(@PathVariable("id") Long productId) {
+//		Optional<Product> product = productRepository.findById(productId);
+//
+//		// model.addAttribute("product", productRepository.findById(productId));
+//		return productRepository.findById(productId);
+//	}
+
+	// REST metodi kyselyn poistamiseen
 	@RequestMapping(value = "/products/{id}", method = RequestMethod.DELETE)
-	public @ResponseBody Optional <Product> deleteProductRest(@PathVariable("id") Long productId) {
-		 productRepository.deleteById(productId);
-		 return productRepository.findById(productId);
-		
+	public @ResponseBody Optional<Product> deleteProductRest(@PathVariable("id") Long productId) {
+		productRepository.deleteById(productId);
+		return productRepository.findById(productId);
+
 	}
 }

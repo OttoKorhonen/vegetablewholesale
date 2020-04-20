@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -15,12 +17,23 @@ public class Product {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)//luodaan automaattisesti id-numeroita tuotteille
+	//älä laita not null. Tallennus ei enää onnistu!
 	private Long productId;
+	@Size(min=4,max=30)
 	private String name;
+	@NotNull
+	@Size(min=4,max=30)
 	private String cultivar;
+	@NotNull
+	@Size(min=4,max=30)
 	private String description;
+	@NotNull
+	@Size(min=4,max=30)
 	private String producer;
+	@NotNull
+	@Size(min=4,max=30)
 	private String country;
+	@NotNull
 	private double price;
 	
 	@ManyToOne//luodaan monen suhde yhteen yhteys relaatiotietokantaan 
@@ -39,7 +52,6 @@ public class Product {
 		this.country = null;
 		this.price = 0;
 		this.category = null;
-		
 	}
 
 	public Product(String name, String cultivar, String description, String producer, String country, double price,

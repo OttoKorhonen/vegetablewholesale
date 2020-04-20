@@ -7,31 +7,45 @@
 <body>
 	<h1>Product</h1>
 	<form th:object="${product}" th:action="@{save}" action="#" method="post">
-		  	<label for="name">Name:</label>
-			<input type="text" id="name" th:field="*{name}" />
-			<div style="clear: both; display: block; height: 10px;"></div>
-		  	<label for="cultivar">Cultivar:</label>
-			<input type="text" id="cultivar" th:field="*{cultivar}" />
-			<div style="clear: both; display: block; height: 10px;"></div>
-		  	<label for="description">Description:</label>
-			<input type="text" th:field="*{description}" />
-			<label for="producer">Producer:</label>
-			<input type="text" id="producer" th:field="*{producer}" />
-			<div style="clear: both; display: block; height: 10px;"></div>
-			<label for="country">Country:</label>
-			<input type="text" id="country" th:field="*{country}" />
-			<div style="clear: both; display: block; height: 10px;"></div>
-			<label for="price">Price:</label>
-			<input type="text" id="price" th:field="*{price}" />
-
-			<div style="clear: both; display: block; height: 10px;"></div>						
+		  <table>
+			<tr>
+				<td><label for="name">Name: </label></td>
+				<td><input type="text" id="name" th:field="*{name}"/></td>
+				<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</td>
+			</tr>
+			<tr>
+				<td><label for="cultivar">Cultivar: </label></td>
+				<td><input type="text" id="cultivar" th:field="*{cultivar}"/></td>
+				<td th:if="${#fields.hasErrors('cultivar')}" th:errors="*{cultivar}">Error</td>
+			</tr>
+			<tr>
+				<td><label for="description">Description: </label></td>
+				<td><input type="text" id="description" th:field="*{description}"/></td>
+				<td th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Error</td>
+			</tr><tr>
+				<td><label for="producer">Producer: </label></td>
+				<td><input type="text" id="producer" th:field="*{producer}"/></td>
+				<td th:if="${#fields.hasErrors('producer')}" th:errors="*{producer}">Error</td>
+			</tr>
+			<tr>
+				<td><label for="country">Country: </label></td>
+				<td><input type="text" id="country" th:field="*{country}"/></td>
+				<td th:if="${#fields.hasErrors('country')}" th:errors="*{country}">Error</td>
+			</tr>
+			<tr>
+				<td><label for="price">Price: </label></td>
+				<td><input type="text" id="price" th:field="*{price}"/></td>
+				<td th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Error</td>
+			</tr>
+		</table>
+		<div style="clear: both; display: block; height: 10px;"></div>						
 		  	<label for="category">Category:</label>
 			 <select id="category" th:field="*{category}" class="form-control"> 
        			<option th:each="category: ${categories}" th:value="${category.categoryId}" th:text="${category.name}"></option>
     		</select>
 			
 			<div style="clear: both; display: block; height: 10px;"></div>
-			<input type="submit" value="Save"></input>
+			<input type="submit" value="Save">
 		</form>
     
 </body>

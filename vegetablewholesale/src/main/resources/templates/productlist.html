@@ -3,7 +3,6 @@
 <head>
 <title>Product list</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
- <link type="text/css" rel="stylesheet" />
 </head>
 <body>
 <div class="col-md-4">
@@ -14,10 +13,10 @@
 	</div>
 	<div class="col-md-4" style="padding:20px 0">
 		<form th:action="@{/logout}" method="post">
-			<input type="submit" value="Sign Out" sec:authorize="hasAuthority('ADMIN')"/>
+			<input type="submit" value="Sign Out" sec:authorize="isAuthenticated()"/>
 		</form>
 		<form th:action="@{/login}" method="post">
-			<input type="submit" value="Sign in" />
+			<input type="submit" value="Sign in" sec:authorize="!isAuthenticated()"/>
 		</form>
 	</div>
 	<table>
@@ -33,7 +32,7 @@
 		</tr>
 
 		<tr th:each="product : ${products}">
-			<!--  <td th:text="${product.productId}"></td>-->
+			<!-- <td  th:text="${product.productId}"></td> -->
 			<td th:text="${product.name}"></td>
 			<td th:text="${product.cultivar}"></td>
 			<td th:text="${product.description}"></td>

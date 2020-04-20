@@ -1,19 +1,19 @@
 package hh.swd20.vegetablewholesale.web;
 
 import java.util.List;
-import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import hh.swd20.vegetablewholesale.domain.CategoryRepository;
 import hh.swd20.vegetablewholesale.domain.Product;
@@ -39,9 +39,11 @@ public class ProductController {
 		return "login";
 	}
 
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/editproduct/{productId}", method = RequestMethod.GET) // haetaan endpointia
 	public String editProduct(@PathVariable("productId") Long productId, Model model) {
 		model.addAttribute("product", productRepository.findById(productId));// käytetään findById-metodia haettaessa
+		model.addAttribute("categories", categoryRepository.findAll());
 		// productrepositorystä tiettyä tuotetta Id-tunnuksella
 		return "editproduct"; // editproduct.html palautus
 	}
@@ -56,7 +58,7 @@ public class ProductController {
 	} // joka prosessoidaan palvelimella
 
 	// tyhjän tuotelomakkeen muodostaminen, uuden tuotteen luominen
-	// @PreAuthorize("hasAuthority('ADMIN')")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/addproduct", method = RequestMethod.GET)
 	public String addProductForm(Model model) {
 		model.addAttribute("product", new Product()); // "tyhjä" tuote-olio
@@ -66,8 +68,13 @@ public class ProductController {
 
 	// tuotelomakkeella syötettyjen tietojen vastaanotto ja tallennus
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String saveProduct(@ModelAttribute Product product) {
-		// talletetaan yhden tuotteen tiedot tietokantaan
+	// talletetaan yhden tuotteen tiedot tietokantaan
+	public String saveProduct(@ModelAttribute @Valid Product product, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("categories", categoryRepository.findAll());
+			System.out.println(bindingResult);
+			return "addproduct";
+		}
 		productRepository.save(product); // save osaa tehdä tarpeen mukaan SQL insertin tai updaten
 		return "redirect:/productlist";// /productlist-endpointin kutsu
 	}
@@ -75,65 +82,9 @@ public class ProductController {
 	// tuotteen poistamiseen käytetty metodi, jossa ainoastaan käyttäjä, jolle on
 	// annettu rooli ADMIN voi poistaa tuotteen luettelosta
 	@RequestMapping(value = "/deleteproduct/{productId}", method = RequestMethod.GET)
-	// @PreAuthorize("hasAuthority('ADMIN')")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public String deleteProduct(@PathVariable("productId") Long productId, Model model) {
 		productRepository.deleteById(productId);
 		return "redirect:../productlist";
-	}
-
-	/*
-	 * Tässä on REST metodit
-	 */
-
-	// Tehdään RESTful metodi hakemaan kaikki tuotteet
-	@RequestMapping(value = "/products", method = RequestMethod.GET)
-	public @ResponseBody List<Product> productListRest() {
-		return (List<Product>) productRepository.findAll();
-	}
-
-	// RESTful palvelu, jolla etsitään tuotteen id:n perusteella
-	@RequestMapping(value = "/products/{productId}", method = RequestMethod.GET)
-	public @ResponseBody Optional<Product> findProductRest(@PathVariable("productId") Long productId) {
-		return productRepository.findById(productId);
-	}
-	// Rest palvelu, jolla voi lisätä uuden tuotteen
-	@RequestMapping(value = "/products", method = RequestMethod.POST)
-	public @ResponseBody Product addNewProduct(@RequestBody Product product) {
-		//kategorian käsittely org.hibernate.TransientPropertyValueException: object references an unsaved transient instance - save the transient instance before flushing : hh.swd20.vegetablewholesale.domain.Product.category -> hh.swd20.vegetablewholesale.domain.Category; nested exception is java.lang.IllegalStateException: org.hibernate.TransientPropertyValueException: object references an unsaved transient instance - save the transient instance before flushing : hh.swd20.vegetablewholesale.domain.Product.category -> hh.swd20.vegetablewholesale.domain.Category"
-		productRepository.save(product);
-		return product;
-	}
-//	//REST metodi tuotteen muokkaamiseen
-//	@RequestMapping(value = "/products/{productId}", method = RequestMethod.POST)
-//	public @ResponseBody Product editProduct(@RequestBody Product product, Model model) {
-//		model.addAttribute("product", productRepository.findById(productId));
-//		return product;
-//	}
-	
-	//REST metodi tuotteen muokkaamiseen
-		@RequestMapping(value = "/products/{productId}", method = RequestMethod.POST)
-		public @ResponseBody Product editProduct(@PathVariable("id") Long productId,@RequestBody Product product, Model model) {
-			model.addAttribute("product", productRepository.findById(productId));
-			return product;
-		}
-
-//	// REST metodi tuotteen muokkaamiseen
-//	@RequestMapping(value = "/products/{id}", method = RequestMethod.POST)
-//	public @ResponseBody Optional<Product> editProduct(@PathVariable("id") Long productId, @RequestBody Optional<Product> p) {
-//		// model.addAttribute("product", productRepository.findById(productId));
-//		//productRepository.findById(productId).get().setPrice(0);
-//		//Product product = productRepository.findById(productId).get();
-//		//product.setPrice(p.getPrice());
-//		//productRepository.save(product);
-//		//return productRepository.findById(productId);
-//		return p;
-//	}
-
-	// REST metodi kyselyn poistamiseen
-	@RequestMapping(value = "/products/{id}", method = RequestMethod.DELETE)
-	public @ResponseBody Optional<Product> deleteProductRest(@PathVariable("id") Long productId) {
-		productRepository.deleteById(productId);
-		return productRepository.findById(productId);
-
 	}
 }

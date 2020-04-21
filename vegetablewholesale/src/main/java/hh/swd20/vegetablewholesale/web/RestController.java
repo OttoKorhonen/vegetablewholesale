@@ -25,7 +25,6 @@ public class RestController{
 	@Autowired
 	ProductRepository productRepository;
 
-	
 //Tehdään RESTful metodi hakemaan kaikki tuotteet
 	@RequestMapping(value = "/products", method = RequestMethod.GET)
 	public @ResponseBody List<Product> productListRest() {

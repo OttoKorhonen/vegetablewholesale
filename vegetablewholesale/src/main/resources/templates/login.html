@@ -2,6 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <head>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
         <title>Product list login page </title>
     </head>
     <body>
@@ -13,9 +17,10 @@
         </div>
         
         <form th:action="@{/login}" method="post">
-            <div><label> User Name : <input type="text" name="username"/> </label></div>
-            <div><label> Password: <input type="password" name="password"/> </label></div>
-            <div><input type="submit" value="Sign In"/></div>
+            <div><label> User Name : <input type="text" name="username" class="form-control"/> </label></div>
+            <div><label> Password: <input type="password" name="password" class="form-control"/> </label></div>
+            <button type="submit" value="Sign in" class="btn btn-primary">Submit</button>
+            <!-- <div><input type="submit" value="Sign In"/></div> -->
         </form>
     </body>
 </html>

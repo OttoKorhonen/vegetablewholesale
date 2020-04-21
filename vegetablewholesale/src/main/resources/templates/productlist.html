@@ -3,9 +3,18 @@
 <head>
 <title>Product list</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  
 </head>
 <body>
-<div class="col-md-4">
+<div class="col-md-12">
 	<h1>Vegetable Wholesale Product List</h1>
 	</div>
 	<div class="col-md-4">
@@ -13,20 +22,22 @@
 	</div>
 	<div class="col-md-4" style="padding:20px 0">
 		<form th:action="@{/logout}" method="post">
-			<input type="submit" value="Sign Out" sec:authorize="isAuthenticated()"/>
+		<button type ="submit" value="Sign Out" sec:authorize="isAuthenticated()" class="btn btn-danger">Sign out</button>
+			<!--  <input type="submit" value="Sign Out" sec:authorize="isAuthenticated()"/>-->
 		</form>
 		<form th:action="@{/login}" method="post">
-			<input type="submit" value="Sign in" sec:authorize="!isAuthenticated()"/>
+		<button type ="submit" value="Sign in" sec:authorize="!isAuthenticated()" class="btn btn-success">Sign in</button>
+			<!--  <input type="submit" value="Sign in" sec:authorize="!isAuthenticated()"/>-->
 		</form>
 	</div>
-	<table>
+	<table class="table table-hover">
 		<tr>
 			<th>Name:</th>
 			<th>Cultivar:</th>
 			<th>Description:</th>
 			<th>Producer:</th>
 			<th>Country:</th>
-			<th>Price:</th>
+			<th>Price(€):</th>
 			<th>Category</th>
 			<th sec:authorize="hasRole('ADMIN')"> </th>
 		</tr>
@@ -44,6 +55,6 @@
 			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/editproduct/{productId}(productId=${product.productId})}">Edit</a></td>
 		</tr>
 	</table>
-	<a sec:authorize="hasAuthority('ADMIN')" href="/addproduct">New Product</a>
+	<a sec:authorize="hasAuthority('ADMIN')" href="/addproduct" class="btn btn-success">New Product</a>
 </body>
 </html>

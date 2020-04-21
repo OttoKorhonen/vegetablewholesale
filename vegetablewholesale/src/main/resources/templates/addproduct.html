@@ -3,6 +3,11 @@
 <head>
     <title>Product form</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  
 </head>
 <body>
 	<h1>Product</h1>
@@ -10,31 +15,31 @@
 		  <table>
 			<tr>
 				<td><label for="name">Name: </label></td>
-				<td><input type="text" id="name" th:field="*{name}"/></td>
+				<td><input type="text" id="name" th:field="*{name}" class="form-control"/></td>
 				<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</td>
 			</tr>
 			<tr>
 				<td><label for="cultivar">Cultivar: </label></td>
-				<td><input type="text" id="cultivar" th:field="*{cultivar}"/></td>
+				<td><input type="text" id="cultivar" th:field="*{cultivar}" class="form-control"/></td>
 				<td th:if="${#fields.hasErrors('cultivar')}" th:errors="*{cultivar}">Error</td>
 			</tr>
 			<tr>
 				<td><label for="description">Description: </label></td>
-				<td><input type="text" id="description" th:field="*{description}"/></td>
+				<td><input type="text" id="description" th:field="*{description}" class="form-control"/></td>
 				<td th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Error</td>
 			</tr><tr>
 				<td><label for="producer">Producer: </label></td>
-				<td><input type="text" id="producer" th:field="*{producer}"/></td>
+				<td><input type="text" id="producer" th:field="*{producer}" class="form-control"/></td>
 				<td th:if="${#fields.hasErrors('producer')}" th:errors="*{producer}">Error</td>
 			</tr>
 			<tr>
 				<td><label for="country">Country: </label></td>
-				<td><input type="text" id="country" th:field="*{country}"/></td>
+				<td><input type="text" id="country" th:field="*{country}" class="form-control"/></td>
 				<td th:if="${#fields.hasErrors('country')}" th:errors="*{country}">Error</td>
 			</tr>
 			<tr>
 				<td><label for="price">Price: </label></td>
-				<td><input type="text" id="price" th:field="*{price}"/></td>
+				<td><input type="text" id="price" th:field="*{price}" class="form-control"/></td>
 				<td th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Error</td>
 			</tr>
 		</table>

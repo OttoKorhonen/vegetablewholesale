@@ -9,10 +9,15 @@
 	<form action="#" th:action="@{/save}" th:object=${product} method="post">
 	<p><input type="hidden" th:field="${product.productId}"/></p>
 	<p>Name: <input type="text" th:field="${product.name}" /></p>
+	<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</p>
 	<p>Cultivar: <input type="text" th:field="${product.cultivar}" /></p>
+	<p th:if="${#fields.hasErrors('cultivar')}" th:errors="*{cultivar}">Error</p>
 	<p>Description: <input type="text" th:field="${product.description}" /></p>
+	<p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Error</p>
 	<p>Producer: <input type="text" th:field="${product.producer}" /></p>
+	<p th:if="${#fields.hasErrors('producer')}" th:errors="*{producer}">Error</p>
 	<p>Country: <input type="text" th:field="${product.country}" /></p>
+	<p th:if="${#fields.hasErrors('country')}" th:errors="*{country}">Error</p>
 	<p>Price: <input type="text" th:field="${product.price}" /></p>
  	<label for="category">Category:</label>
 		<select id="category" th:field="*{category}" class="form-control"> 
